@@ -23,7 +23,7 @@ public class TaskMapper {
                 task.getContent());
     }
 
-    public TaskDto mapToOptionalTaskDto(Optional<Task> task) {
+    public TaskDto mapOptionalTaskToTaskDto(Optional<Task> task) {
         return new TaskDto(
                 task.get().getId(),
                 task.get().getTitle(),

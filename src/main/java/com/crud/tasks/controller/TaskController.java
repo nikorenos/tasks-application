@@ -27,7 +27,7 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getTaskById")
     public TaskDto getTaskById(Long taskId) {
-        return taskMapper.mapToOptionalTaskDto(service.getTaskById(1L));
+        return taskMapper.mapOptionalTaskToTaskDto(service.getTaskById(1L));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
