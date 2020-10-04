@@ -1,10 +1,10 @@
 package com.crud.tasks.mapper;
 
+import com.crud.tasks.controller.TaskNotFoundException;
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,13 +21,6 @@ public class TaskMapper {
                 task.getId(),
                 task.getTitle(),
                 task.getContent());
-    }
-
-    public TaskDto mapOptionalTaskToTaskDto(Optional<Task> task) {
-        return new TaskDto(
-                task.get().getId(),
-                task.get().getTitle(),
-                task.get().getContent());
     }
 
     public List<TaskDto> mapToTaskDtoList(final List<Task> taskList) {
