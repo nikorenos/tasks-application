@@ -39,7 +39,7 @@ public class TaskController {
         if (service.getTask(taskId).isPresent()) {
             service.deleteById(taskId);
         } else {
-            throw new TaskNotFoundException("Error");
+            throw new TaskNotFoundException("Error with delete task");
         }
     }
 
