@@ -20,7 +20,6 @@ import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
-@RequestMapping("/v1/trello")
 @Component
 public class TrelloClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
