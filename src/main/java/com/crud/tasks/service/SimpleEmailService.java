@@ -30,7 +30,7 @@ public class SimpleEmailService {
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        if (mail.getToCc() != "") {
+        if (mail.getToCc() != null) {
             mailMessage.setCc((mail.getToCc()));
             System.out.println("CC email sent");
         }

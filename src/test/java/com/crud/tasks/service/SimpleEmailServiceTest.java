@@ -27,7 +27,7 @@ public class SimpleEmailServiceTest {
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        if (mail.getToCc() != "") {
+        if (mail.getToCc() != null) {
             mailMessage.setCc((mail.getToCc()));
         }
         mailMessage.setSubject(mail.getSubject());
@@ -43,11 +43,11 @@ public class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmailWithoutCC() {
         //Given
-        Mail mail = new Mail("test@test.com", "", "Test", "Test Message");
+        Mail mail = new Mail("test@test.com",  "Test", "Test Message");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
-        if (mail.getToCc() != "") {
+        if (mail.getToCc() != null) {
             mailMessage.setCc((mail.getToCc()));
         }
         mailMessage.setSubject(mail.getSubject());
