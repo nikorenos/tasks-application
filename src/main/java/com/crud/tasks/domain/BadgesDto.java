@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BadgesDto {
     private int votes;
-    private AttachmentByTypeDto attachments;
-    private String pos;
-    private String idList;
+    private AttachmentByTypeDto attachmentsByType;
+    /*private String pos;
+    private String idList;*/
 }
