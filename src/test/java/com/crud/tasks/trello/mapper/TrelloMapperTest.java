@@ -76,6 +76,7 @@ public class TrelloMapperTest {
         // Then
         assertEquals("1", trelloLists.get(0).getId());
         assertEquals("list 1", trelloLists.get(0).getName());
+        assertEquals(false, trelloLists.get(0).isClosed());
     }
 
     @Test
@@ -93,6 +94,7 @@ public class TrelloMapperTest {
         // Then
         assertEquals("2", trelloListDtoList.get(1).getId());
         assertEquals("list 2", trelloListDtoList.get(1).getName());
+        assertEquals(true, trelloListDtoList.get(1).isClosed());
     }
 
     @Test
