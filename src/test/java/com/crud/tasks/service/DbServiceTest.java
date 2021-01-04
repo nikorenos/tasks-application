@@ -6,12 +6,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,5 +43,68 @@ public class DbServiceTest {
         // Then
         assertEquals(2,receivedList.size());
         assertEquals("Task 2",receivedList.get(1).getTitle());
+    }
+
+    @Test
+    public void getTaskById() {
+        //Given
+        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        long taskId = task1.get().getId();
+
+        when(repository.findById(taskId)).thenReturn(task1);
+
+        // When
+        Optional<Task> receivedTask = dbService.getTaskById(taskId);
+        // Then
+        assertEquals("Task 1",receivedTask.get().getTitle());
+        assertEquals("Task 1 content",receivedTask.get().getContent());
+    }
+
+    @Test
+    public void getTask() {
+        //Given
+        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        long taskId = task1.get().getId();
+
+        when(repository.findById(taskId)).thenReturn(task1);
+
+        // When
+        Optional<Task> receivedTask = dbService.getTaskById(taskId);
+        // Then
+        assertEquals("Task 1",receivedTask.get().getTitle());
+        assertEquals("Task 1 content",receivedTask.get().getContent());
+    }
+
+    @Test
+    public void saveTask() {
+        //Given
+        Task task1 = new Task(1L, "Task 1", "Task 1 content");
+
+        when(repository.save(task1)).thenReturn(task1);
+
+        // When
+        Task savedTask = dbService.saveTask(task1);
+        // Then
+        assertEquals("Task 1",savedTask.getTitle());
+        assertEquals("Task 1 content",savedTask.getContent());
+    }
+
+    @Test
+    public void deleteTaskById() {
+        //Given
+        Task task1 = new Task(1L, "Task 1", "Task 1 content");
+        List<Task> list = new ArrayList<>();
+        list.add(task1);
+        long taskId = task1.getId();
+        //when(repository.deleteById(taskIdtask1)).thenAnswer()
+        repository.deleteById(task1.getId());
+
+        // When
+        dbService.deleteById(taskId);
+
+        // Then
+        //Mockito.verify(repository, times(1)).delete(task1);
+        //assertThat(repository.findById(task1.getId()).get().isNull);
+        //assertEquals(null,task1.getTitle());
     }
 }
