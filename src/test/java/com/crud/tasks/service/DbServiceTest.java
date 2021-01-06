@@ -92,18 +92,13 @@ public class DbServiceTest {
     @Test
     public void deleteTaskById() {
         //Given
-        Task task1 = new Task(1L, "Task 1", "Task 1 content");
-        List<Task> list = new ArrayList<>();
-        list.add(task1);
-        long taskId = task1.getId();
-        //when(repository.deleteById(taskIdtask1)).thenAnswer()
-        repository.deleteById(task1.getId());
+
 
         // When
-        dbService.deleteById(taskId);
+        dbService.deleteById(1L);
 
         // Then
-        //Mockito.verify(repository, times(1)).delete(task1);
+        Mockito.verify(repository, times(1)).deleteById(1L);
         //assertThat(repository.findById(task1.getId()).get().isNull);
         //assertEquals(null,task1.getTitle());
     }
