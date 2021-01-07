@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -91,15 +90,10 @@ public class DbServiceTest {
 
     @Test
     public void deleteTaskById() {
-        //Given
-
-
         // When
         dbService.deleteById(1L);
 
         // Then
         Mockito.verify(repository, times(1)).deleteById(1L);
-        //assertThat(repository.findById(task1.getId()).get().isNull);
-        //assertEquals(null,task1.getTitle());
     }
 }
