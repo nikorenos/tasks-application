@@ -53,7 +53,7 @@ public class DbServiceTest {
         when(repository.findById(taskId)).thenReturn(task1);
 
         // When
-        Optional<Task> receivedTask = dbService.getTaskById(taskId);
+        Optional<Task> receivedTask = dbService.getTask(taskId);
         // Then
         assertEquals("Task 1",receivedTask.get().getTitle());
         assertEquals("Task 1 content",receivedTask.get().getContent());
@@ -68,7 +68,7 @@ public class DbServiceTest {
         when(repository.findById(taskId)).thenReturn(task1);
 
         // When
-        Optional<Task> receivedTask = dbService.getTaskById(taskId);
+        Optional<Task> receivedTask = dbService.getTask(taskId);
         // Then
         assertEquals("Task 1",receivedTask.get().getTitle());
         assertEquals("Task 1 content",receivedTask.get().getContent());
