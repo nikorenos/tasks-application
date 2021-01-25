@@ -31,12 +31,30 @@ public class SimpleEmailService {
         }
     }
 
+    public void sendDailyTasksReport(final Mail mail) {
+        LOGGER.info("Starting daily report email preparation...");
+        try {
+            javaMailSender.send(createMimeTasksReport(mail));
+            LOGGER.info("Daily report email has been sent.");
+        } catch (MailException e) {
+            LOGGER.error("Failed to process daily report email sending: ", e.getMessage(), e);
+        }
+    }
+
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+        };
+    }
+    private MimeMessagePreparator createMimeTasksReport(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.dailyTasksReportEmail(mail.getMessage()), true);
         };
     }
 
