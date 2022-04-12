@@ -1,9 +1,10 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.Task;
-import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.domain.User;
+import com.crud.tasks.dto.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
-import com.crud.tasks.service.DbService;
+import com.crud.tasks.service.TaskService;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,7 @@ public class TaskControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private DbService service;
+    private TaskService service;
 
     @MockBean
     private TaskMapper taskMapper;
@@ -56,9 +57,9 @@ public class TaskControllerTest {
     public void shouldFetchTasksList() throws Exception {
         // Given
         List<Task> taskList = new ArrayList<>();
-        taskList.add(new Task(1L, "Task 1", "Task 1 content"));
+        taskList.add(new Task(1L, "Task 1", "Task 1 content", null));
         List<TaskDto> taskListDto = new ArrayList<>();
-        taskListDto.add(new TaskDto(1L, "Task 1", "Task 1 content"));
+        taskListDto.add(new TaskDto(1L, "Task 1", "Task 1 content", null));
 
         when(service.getAllTasks()).thenReturn(taskList);
         when(taskMapper.mapToTaskDtoList(taskList)).thenReturn(taskListDto);
@@ -74,8 +75,8 @@ public class TaskControllerTest {
     @Test
     public void shouldFetchTask() throws Exception {
         // Given
-        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content");
-        Optional<Task> task = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content", null);
+        Optional<Task> task = Optional.of(new Task(1L, "Task 1", "Task 1 content", null));
         long taskId = taskDto.getId();
 
         when(service.getTask(taskId)).thenReturn(task);
@@ -92,9 +93,9 @@ public class TaskControllerTest {
     @Test
     public void shouldDeleteTask() throws Exception {
         // Given
-        Task task = new Task(1L, "Task 1", "Task 1 content");
+        Task task = new Task(1L, "Task 1", "Task 1 content", null);
         Long taskId = task.getId();
-        Optional<Task> foundTask = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        Optional<Task> foundTask = Optional.of(new Task(1L, "Task 1", "Task 1 content", null));
 
         when(service.getTask(taskId)).thenReturn(foundTask);
 
@@ -106,8 +107,8 @@ public class TaskControllerTest {
     @Test
     public void shouldCreateTask() throws Exception {
         // Given
-        Task task = new Task(1L, "Task 1", "Task 1 content");
-        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content");
+        Task task = new Task(1L, "Task 1", "Task 1 content", null);
+        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content", null);
 
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
         when(service.saveTask(task)).thenReturn(task);
@@ -126,8 +127,8 @@ public class TaskControllerTest {
     @Test
     public void shouldUpdateTask() throws Exception {
         // Given
-        Task task = new Task(1L, "Task 1", "Task 1 content");
-        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content");
+        Task task = new Task(1L, "Task 1", "Task 1 content", null);
+        TaskDto taskDto = new TaskDto(1L, "Task 1", "Task 1 content", null);
 
         when(taskMapper.mapToTask(any(TaskDto.class))).thenReturn(task);
         when(service.saveTask(task)).thenReturn(task);

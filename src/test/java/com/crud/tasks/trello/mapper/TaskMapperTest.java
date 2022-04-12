@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.mapper;
 
 import com.crud.tasks.domain.*;
+import com.crud.tasks.dto.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class TaskMapperTest {
     @Test
     public void mapToTaskTest() {
         // Given
-        TaskDto taskDto = new TaskDto(1L, "Task 1", "Content task 1");
+        TaskDto taskDto = new TaskDto(1L, "Task 1", "Content task 1", null);
 
         // When
         Task task = taskMapper.mapToTask(taskDto);
@@ -35,7 +36,7 @@ public class TaskMapperTest {
     @Test
     public void mapToTaskDtoTest() {
         // Given
-        Task task = new Task(1L, "Task 1", "Content task 1");
+        Task task = new Task(1L, "Task 1", "Content task 1", null);
 
         // When
         TaskDto taskDto = taskMapper.mapToTaskDto(task);
@@ -49,7 +50,7 @@ public class TaskMapperTest {
     @Test
     public void mapToTaskDtoListTest() {
         // Given
-        Task task = new Task(1L, "Task 1", "Content task 1");
+        Task task = new Task(1L, "Task 1", "Content task 1", null);
         List<Task> taskList = new ArrayList<>();
         taskList.add(task);
 

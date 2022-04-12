@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Task;
+import com.crud.tasks.domain.User;
 import com.crud.tasks.repository.TaskRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +19,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DbServiceTest {
+public class TaskServiceTest {
 
     @InjectMocks
-    private DbService dbService;
+    private TaskService taskService;
 
     @Mock
     TaskRepository repository;
@@ -29,31 +30,34 @@ public class DbServiceTest {
     @Test
     public void getAllTasks() {
         //Given
-        Task task1 = new Task(1L, "Task 1", "Task 1 content");
-        Task task2 = new Task(2L, "Task 2", "Task 2 content");
-        List<Task> list = new ArrayList<>();
-        list.add(task1);
-        list.add(task2);
+        User user = new User(1L, "Marcin", "Kotlin", "1234", null);
+        Task task1 = new Task(1L, "Task 1", "Task 1 content", 1L);
+        Task task2 = new Task(2L, "Task 2", "Task 2 content", null);
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(task1);
+        user.setTasks(taskList);
+        taskList.add(task2);
 
-        when(repository.findAll()).thenReturn(list);
+
+        when(repository.findAll()).thenReturn(taskList);
 
         // When
-        List<Task> receivedList = dbService.getAllTasks();
+        List<Task> receivedList = taskService.getAllTasks();
         // Then
         assertEquals(2,receivedList.size());
-        assertEquals("Task 2",receivedList.get(1).getTitle());
+        assertEquals("1",receivedList.get(0).getUserId().toString());
     }
 
     @Test
     public void getTaskById() {
         //Given
-        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content", null));
         long taskId = task1.get().getId();
 
         when(repository.findById(taskId)).thenReturn(task1);
 
         // When
-        Optional<Task> receivedTask = dbService.getTask(taskId);
+        Optional<Task> receivedTask = taskService.getTask(taskId);
         // Then
         assertEquals("Task 1",receivedTask.get().getTitle());
         assertEquals("Task 1 content",receivedTask.get().getContent());
@@ -62,13 +66,13 @@ public class DbServiceTest {
     @Test
     public void getTask() {
         //Given
-        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content"));
+        Optional<Task> task1 = Optional.of(new Task(1L, "Task 1", "Task 1 content", null));
         long taskId = task1.get().getId();
 
         when(repository.findById(taskId)).thenReturn(task1);
 
         // When
-        Optional<Task> receivedTask = dbService.getTask(taskId);
+        Optional<Task> receivedTask = taskService.getTask(taskId);
         // Then
         assertEquals("Task 1",receivedTask.get().getTitle());
         assertEquals("Task 1 content",receivedTask.get().getContent());
@@ -77,12 +81,12 @@ public class DbServiceTest {
     @Test
     public void saveTask() {
         //Given
-        Task task1 = new Task(1L, "Task 1", "Task 1 content");
+        Task task1 = new Task(1L, "Task 1", "Task 1 content", null);
 
         when(repository.save(task1)).thenReturn(task1);
 
         // When
-        Task savedTask = dbService.saveTask(task1);
+        Task savedTask = taskService.saveTask(task1);
         // Then
         assertEquals("Task 1",savedTask.getTitle());
         assertEquals("Task 1 content",savedTask.getContent());
@@ -91,7 +95,7 @@ public class DbServiceTest {
     @Test
     public void deleteTaskById() {
         // When
-        dbService.deleteById(1L);
+        taskService.deleteById(1L);
 
         // Then
         Mockito.verify(repository, times(1)).deleteById(1L);

@@ -9,7 +9,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "tasks")
+@Entity
+@Table(name = "TASKS")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,4 +21,7 @@ public class Task {
 
     @Column(name = "description")
     private String content;
+
+    @Column(name = "user_id")
+    private Long userId;
 }
